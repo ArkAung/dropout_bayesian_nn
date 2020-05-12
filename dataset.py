@@ -11,26 +11,30 @@ in training.
 Author: Arkar Min Aung
 """
 
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, DirectoryIterator
 from typing import List, Dict, Tuple
+import enum
 
 
-class Dataset:
+class DatasetType(enum.Enum):
     TRAIN = 1
     VAL = 2
     TEST = 3
 
-    def __init__(self, path: str, target_size: Tuple[int, int], dataset_type, batch_size: int,
-                 data_generator: ImageDataGenerator = None, class_filter: List[str] = None,
+
+class Dataset:
+    def __init__(self, path: str, target_size: Tuple[int, int], dataset_type: DatasetType,
+                 batch_size: int, data_generator: ImageDataGenerator = None,
+                 class_filter: List[str] = None,
                  label_mapping: Dict[int, str] = None):
         self.path = path
-        if dataset_type == Dataset.TRAIN:
+        if dataset_type == DatasetType.TRAIN:
             self.dataset_subset = 'training'
             self.dataset_shuffle = True
-        elif dataset_type == Dataset.VAL:
+        elif dataset_type == DatasetType.VAL:
             self.dataset_subset = 'validation'
             self.dataset_shuffle = False
-        elif dataset_type == Dataset.TEST:
+        elif dataset_type == DatasetType.TEST:
             self.dataset_subset = None
             self.dataset_shuffle = False
         self.dataset_type = dataset_type
@@ -45,7 +49,7 @@ class Dataset:
         self.data_iterator = self._get_data_iterator()
 
     def _get_data_generator(self) -> ImageDataGenerator:
-        if self.dataset_type == Dataset.TRAIN:
+        if self.dataset_type == DatasetType.TRAIN:
             return ImageDataGenerator(
                                 rescale=1./255,
                                 rotation_range=20,
@@ -55,12 +59,12 @@ class Dataset:
                                 zoom_range=0.2,
                                 horizontal_flip=True,
                                 fill_mode='nearest',
-                                validation_split=0.1
+                                validation_split=0.2
                                 )
         else:
             return ImageDataGenerator(rescale=1./255)
 
-    def _get_data_iterator(self):
+    def _get_data_iterator(self) -> DirectoryIterator:
         return self.data_generator.flow_from_directory(self.path,
                                                        target_size=self.target_size,
                                                        class_mode='categorical',
