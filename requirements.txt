@@ -5,3 +5,4 @@ numpy
 jupyterlab
 pillow
 pandas
+tqdm

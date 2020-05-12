@@ -16,9 +16,9 @@ def plot_grid(rows, cols, figsize, image_root_path, labels, data_shape):
         ax.set_title("{}: {}".format(label, name))
 
 
-def visualize_probdist(distribution, images, labels, label_mapping):
-    test_id = np.random.randint(0, high=len(labels), size=(6,))
-    f, axes = plt.subplots(len(test_id), 2, figsize=(10, 24))
+def visualize_probdist(count, pred_bayes_dist, images, labels, label_mapping):
+    test_id = np.random.randint(0, high=len(labels), size=(count,))
+    f, axes = plt.subplots(len(test_id), 2, figsize=(10, 4*count))
     f.tight_layout(h_pad=5, w_pad=0)
     axs = axes.ravel()
 
@@ -26,8 +26,8 @@ def visualize_probdist(distribution, images, labels, label_mapping):
     for tid in test_id:
         current_ax = axs[ax_idx]
         for i in range(5):
-            current_ax.hist(distribution[tid][:, i], alpha=0.3, label=label_mapping[i])
-            current_ax.axvline(np.quantile(distribution[tid][:, i], 0.5), color='red', linestyle=':', alpha=0.4)
+            current_ax.hist(pred_bayes_dist[tid][:, i], alpha=0.3, label=label_mapping[i])
+            current_ax.axvline(np.quantile(pred_bayes_dist[tid][:, i], 0.5), color='red', linestyle=':', alpha=0.4)
             current_ax.axvline(0.5, color='green', linestyle='--')
             current_ax.legend()
             current_ax.set_xlabel('Probability')

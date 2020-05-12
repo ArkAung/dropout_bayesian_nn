@@ -73,4 +73,4 @@ class Network:
                        callbacks=[es], verbose=1)
 
     def get_predictions(self, test_dataset: Dataset) -> np.ndarray:
-        return self.model.predict(test_dataset)
+        return self.model.predict(test_dataset.data_iterator)

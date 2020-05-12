@@ -14,7 +14,7 @@ Author: Arkar Min Aung
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, DirectoryIterator
 from typing import List, Dict, Tuple
 import enum
-
+import numpy as np
 
 class DatasetType(enum.Enum):
     TRAIN = 1
@@ -73,3 +73,21 @@ class Dataset:
                                                        batch_size=self.batch_size,
                                                        seed=1337,
                                                        classes=self.class_filter)
+
+    def get_all_data(self) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Collect all data and label by exhausting the data iterator
+        and returns a single array of data and a single array of labels
+        :return:
+        """
+        test_num = self.data_iterator.samples
+
+        data, label = [], []
+        for i in range((test_num // self.batch_size) + 1):
+            x, y = self.data_iterator.next()
+            data.append(x)
+            label.append(y)
+
+        data = np.vstack(data)
+        label = np.argmax(np.vstack(label), axis=1)
+        return data, label
