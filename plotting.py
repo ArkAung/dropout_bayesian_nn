@@ -10,10 +10,10 @@ def plot_grid(rows, cols, figsize, image_root_path, labels, data_shape):
     for ax, label, name in zip(axes.ravel(), labels['Label'], labels['Common Name']):
         img = np.random.choice(os.listdir(os.path.join(image_root_path, label)))
         img = Image.open(os.path.join(image_root_path, label, img))
-        img = img.resize(img, data_shape)
+        img = img.resize(data_shape)
         ax.imshow(img)
         ax.axis('off')
-        ax.set_title(name)
+        ax.set_title("{}: {}".format(label, name))
 
 
 def visualize_probdist(distribution, images, labels, label_mapping):
