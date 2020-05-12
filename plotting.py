@@ -30,8 +30,8 @@ def visualize_probdist(distribution, images, labels, label_mapping):
             current_ax.axvline(np.quantile(distribution[tid][:, i], 0.5), color='red', linestyle=':', alpha=0.4)
             current_ax.axvline(0.5, color='green', linestyle='--')
             current_ax.legend()
-            current_ax.set_xlabel('probability')
-            current_ax.set_ylabel('count')
+            current_ax.set_xlabel('Probability')
+            current_ax.set_ylabel('Count')
             current_ax.title.set_text("Correct Label: {}".format(label_mapping[labels[tid]]))
         np.set_printoptions(False)
         ax_idx += 1

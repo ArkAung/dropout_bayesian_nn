@@ -1,3 +1,12 @@
+"""
+Network class which includes:
+    - Network definition
+    - Network training
+    - Getting predictions from network
+
+Author: Arkar Min Aung
+"""
+
 import os
 import random
 from typing import Tuple
@@ -56,11 +65,11 @@ class Network:
 
         es = EarlyStopping(monitor='val_accuracy', mode='auto', restore_best_weights=True, verbose=1, patience=7)
 
-        train_steps = train_dataset.datagenerator.samples / train_dataset.datagenerator.batch_size
-        val_steps = val_dataset.datagenerator.samples / val_dataset.datagenerator.batch_size
+        train_steps = train_dataset.data_iterator.samples / train_dataset.data_iterator.batch_size
+        val_steps = val_dataset.data_iterator.samples / val_dataset.data_iterator.batch_size
 
-        self.model.fit(train_dataset.datagenerator, steps_per_epoch=train_steps, epochs=epochs,
-                       validation_data=val_dataset.datagenerator, validation_steps=val_steps,
+        self.model.fit(train_dataset.data_iterator, steps_per_epoch=train_steps, epochs=epochs,
+                       validation_data=val_dataset.data_iterator, validation_steps=val_steps,
                        callbacks=[es], verbose=1)
 
     def get_predictions(self, test_dataset: Dataset) -> np.ndarray:
