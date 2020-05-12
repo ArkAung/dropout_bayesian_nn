@@ -11,3 +11,15 @@
 * Run jupyter lab `jupyter lab`
 * Open `Dropout as Bayesian Approximation.ipynb`
 
+## Visualizing Model Uncertainty
+
+Data is passed through the model with `Dropout` turned on 
+during the inference step for 500 times. The resulting 
+probability distributions are what the model produce over 
+500 times.
+
+When the model is certain:
+![Certain](assets/certain.png)
+
+When the model is uncertain:
+![Uncertain](assets/uncertain.png)
