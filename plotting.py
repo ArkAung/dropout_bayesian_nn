@@ -18,7 +18,7 @@ def plot_grid(rows, cols, figsize, image_root_path, labels, data_shape):
 
 def visualize_probdist(count, pred_bayes_dist, images, labels, label_mapping):
     test_id = np.random.randint(0, high=len(labels), size=(count,))
-    f, axes = plt.subplots(len(test_id), 2, figsize=(10, 24))
+    f, axes = plt.subplots(len(test_id), 2, figsize=(10, 4*count))
     f.tight_layout(h_pad=5, w_pad=0)
     axs = axes.ravel()
 
