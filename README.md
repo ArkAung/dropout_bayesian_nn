@@ -6,7 +6,7 @@
 
 * Clone repository and change directory to local copy
 * Create a conda environment `conda create --name bayesian_nn`
-* Activate conda environment `source activate bayesian_nn`
+* Activate conda environment `conda activate bayesian_nn`
 * Install required libraries `pip install -r requirements.txt`
 * Run jupyter lab `jupyter lab`
 * Open `Dropout as Bayesian Approximation.ipynb`
