@@ -25,7 +25,7 @@ class Model:
         np.random.seed(seed)
         random.seed(seed)
 
-    def _build_model(self):
+    def _build_model(self) -> Model:
         inp = Input(shape=self.input_shape)
 
         x = Conv2D(32, (3, 3), activation='relu')(inp)
@@ -51,7 +51,7 @@ class Model:
 
         return model
 
-    def train_model(self, train_gen, val_gen, batch_size, epochs):
+    def train_model(self, train_gen, val_gen: , batch_size: int, epochs: int) -> Model:
         self._set_seeds(1337)
 
         es = EarlyStopping(monitor='val_accuracy', mode='auto', restore_best_weights=True, verbose=1, patience=7)
