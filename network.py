@@ -63,7 +63,8 @@ class Network:
     def train_model(self, train_dataset: Dataset, val_dataset: Dataset, epochs: int) -> None:
         self._set_seeds(1337)
 
-        es = EarlyStopping(monitor='val_accuracy', mode='auto', restore_best_weights=True, verbose=1, patience=7)
+        es = EarlyStopping(monitor='val_accuracy', mode='auto', restore_best_weights=True,
+                           verbose=1, patience=3)
 
         train_steps = train_dataset.data_iterator.samples / train_dataset.data_iterator.batch_size
         val_steps = val_dataset.data_iterator.samples / val_dataset.data_iterator.batch_size
