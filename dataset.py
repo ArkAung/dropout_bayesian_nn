@@ -16,6 +16,7 @@ from typing import List, Dict, Tuple
 import enum
 import numpy as np
 
+
 class DatasetType(enum.Enum):
     TRAIN = 1
     VAL = 2
@@ -78,7 +79,7 @@ class Dataset:
         """
         Collect all data and label by exhausting the data iterator
         and returns a single array of data and a single array of labels
-        :return:
+        :return: ndarray of images, ndarray of labels
         """
         test_num = self.data_iterator.samples
 

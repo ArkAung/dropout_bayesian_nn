@@ -1,3 +1,8 @@
+"""
+    Plotting utility functions
+    
+Author: Arkar Min Aung
+"""
 import matplotlib.pyplot as plt
 import numpy as np
 import PIL.Image as Image
@@ -16,8 +21,9 @@ def plot_grid(rows, cols, figsize, image_root_path, labels, data_shape):
         ax.set_title("{}: {}".format(label, name))
 
 
-def visualize_probdist(count, pred_bayes_dist, images, labels, label_mapping):
+def visualize_probdist(count, pred_bayes_dist, images, labels, label_mapping, ood_mapping=None):
     test_id = np.random.randint(0, high=len(labels), size=(count,))
+    
     f, axes = plt.subplots(len(test_id), 2, figsize=(10, 4*count))
     f.tight_layout(h_pad=5, w_pad=0)
     axs = axes.ravel()
@@ -32,7 +38,10 @@ def visualize_probdist(count, pred_bayes_dist, images, labels, label_mapping):
             current_ax.legend()
             current_ax.set_xlabel('Probability')
             current_ax.set_ylabel('Count')
-            current_ax.title.set_text("Correct Label: {}".format(label_mapping[labels[tid]]))
+            if ood_mapping is not None:
+                current_ax.title.set_text("Correct Label: {}".format(ood_mapping[labels[tid]]))
+            else:
+                current_ax.title.set_text("Correct Label: {}".format(label_mapping[labels[tid]]))
         np.set_printoptions(False)
         ax_idx += 1
         current_ax = axs[ax_idx]
